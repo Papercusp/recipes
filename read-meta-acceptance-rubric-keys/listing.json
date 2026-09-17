@@ -1,0 +1,11 @@
+{
+  "kind": "recipe",
+  "id": "read-meta-acceptance-rubric-keys",
+  "title": "Read meta-acceptance rubric keys",
+  "description": "Return the six current meta-rubric criteria needed for a complete current-revision attestation.",
+  "version": "0.1.0",
+  "source": "exported",
+  "tools_used": [
+    "rubrics:get"
+  ]
+}

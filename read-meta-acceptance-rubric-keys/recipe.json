@@ -1,0 +1,11 @@
+{
+  "id": "read-meta-acceptance-rubric-keys",
+  "title": "Read meta-acceptance rubric keys",
+  "description": "Return the six current meta-rubric criteria needed for a complete current-revision attestation.",
+  "script": "const r = await tools.rubrics.get({ rubricRef: 'meta-acceptance-rubric' }); const x = r.results?.[0]?.rubric; return { rubricId: x?.rubricId, criteria: x?.criteria?.map(({ key, title, model, method }) => ({ key, title, model, method })), ratingScale: x?.ratingScale, updatedAt: x?.updatedAt };",
+  "toolsUsed": [
+    "rubrics:get"
+  ],
+  "tags": [],
+  "authorityUnresolved": false
+}
