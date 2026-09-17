@@ -1,0 +1,12 @@
+{
+  "kind": "recipe",
+  "id": "goal-mode-e2e-inventory-rubric-criteria-vs-latest-scorecard-ratings",
+  "title": "goal-mode-e2e: inventory rubric criteria vs latest scorecard ratings",
+  "description": "Reads the goal-mode-e2e rubric criteria keys and the latest scorecard's per-criterion ratings, returning a compact key/rating/evidence-length inventory so a grader can plan a delta emit without pulling evidence prose into context.",
+  "version": "0.1.0",
+  "source": "exported",
+  "tools_used": [
+    "rubrics:get",
+    "scorecards:list"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "goal-mode-e2e-inventory-rubric-criteria-vs-latest-scorecard-ratings",
+  "title": "goal-mode-e2e: inventory rubric criteria vs latest scorecard ratings",
+  "description": "Reads the goal-mode-e2e rubric criteria keys and the latest scorecard's per-criterion ratings, returning a compact key/rating/evidence-length inventory so a grader can plan a delta emit without pulling evidence prose into context.",
+  "script": "const r = await tools.rubrics.get({ rubricRef: 'goal-mode-e2e' });\nconst rub = (r.results && r.results[0] && r.results[0].rubric) || r.rubric;\nconst keys = (rub.criteria || []).map(c => c.key);\n\nconst sc = await tools.scorecards.list({ rubricRef: 'goal-mode-e2e', limit: 5 });\nconst rows = sc.scorecards || sc.results || sc.rows || [];\nconst latest = rows[0];\nconst ratings = (latest && (latest.ratings || (latest.observation && latest.observation.ratings))) || {};\n\nreturn {\n  rubricCriteriaCount: keys.length,\n  rubricKeys: keys,\n  latestId: latest && (latest.issueId || latest.id || latest.feature_id),\n  latestCreatedAt: latest && (latest.createdAt || latest.created_at),\n  inventory: keys.map(k => ({\n    key: k,\n    rating: ratings[k] ? ratings[k].rating : '<<MISSING>>',\n    evidenceChars: ratings[k] && ratings[k].evidence ? ratings[k].evidence.length : 0,\n  })),\n  ratingKeysNotInRubric: Object.keys(ratings).filter(k => !keys.includes(k)),\n};",
+  "toolsUsed": [
+    "rubrics:get",
+    "scorecards:list"
+  ],
+  "tags": [],
+  "authorityUnresolved": false
+}
